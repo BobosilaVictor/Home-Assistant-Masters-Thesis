@@ -25,7 +25,7 @@ const DataContent = () => {
   const message = "0x00124b0029192503 temperature 5T";
   const [data, setData] = useState();
   useEffect(() => {
-    const socket = new WebSocket("ws://192.168.100.14900.15200.15200.152:8002/");
+    const socket = new WebSocket("ws://192.168.100.152:8002/");
     socket.onopen = () => {
       socket.send(JSON.stringify(message));
     };

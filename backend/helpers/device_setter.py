@@ -7,7 +7,7 @@ class DeviceSetter(object):
     def __init__(self):
         try:
             self.status = None
-            self.BROKER_IP = "192.168.100.149"
+            self.BROKER_IP = "192.168.100.152"
             self.client = mqtt.Client("P3")
 
             self.client.connect(self.BROKER_IP, 1883, 60)

@@ -8,7 +8,7 @@ class DeviceBind(object):
     def __init__(self):
         try:
             self.data = {"status": None}
-            self.BROKER_IP = "192.168.100.149"
+            self.BROKER_IP = "192.168.100.152"
             self.client = mqtt.Client("P4")
             self.client.on_connect = self.on_connect_finder
             self.client.on_message = self.on_message_finder
