@@ -13,7 +13,7 @@ import DataPage from "../pages/dataPage";
 const AppRouter = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    const socket = new WebSocket("ws://192.168.100.152:5678/");
+    const socket = new WebSocket("ws://192.168.100.149:5678/");
     const add_devices = (event: MessageEvent) => {
       dispatch(incrementByAmount(JSON.parse(event.data) as Device[]));
     };
@@ -24,7 +24,7 @@ const AppRouter = () => {
     };
   });
   useEffect(() => {
-    const socket = new WebSocket("ws://192.168.100.152:5680/");
+    const socket = new WebSocket("ws://192.168.100.149:5680/");
     const add_devices = (event: MessageEvent) => {
       dispatch(addGroups(JSON.parse(event.data) as Group[]));
     };

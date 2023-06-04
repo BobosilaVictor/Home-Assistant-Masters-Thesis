@@ -6,7 +6,7 @@ import { Notifications } from "@mantine/notifications";
 import { AppRouter } from "./navigation";
 import React, { createContext } from "react";
 
-const socket = new WebSocket("ws://192.168.100.152:8001");
+const socket = new WebSocket("ws://192.168.100.149:8001");
 export const SocketContext = createContext(socket);
 
 function App() {

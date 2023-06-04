@@ -29,7 +29,7 @@ async def send_data():
 
 
 async def main():
-    async with websockets.serve(register, "192.168.100.152", 5678):
+    async with websockets.serve(register, "192.168.100.149", 5678):
         await send_data()
 
 

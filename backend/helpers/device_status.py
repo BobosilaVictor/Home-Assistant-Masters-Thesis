@@ -8,7 +8,7 @@ class DeviceState(object):
         try:
             self.data = data
             self.status = None
-            self.BROKER_IP = "192.168.100.152"
+            self.BROKER_IP = "192.168.100.149"
             self.client = mqtt.Client("P2")
 
             self.client.on_message = self.on_message_state
