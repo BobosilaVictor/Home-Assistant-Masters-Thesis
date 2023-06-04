@@ -1,5 +1,6 @@
 import redis
 import datetime
+import time
 
 r = redis.Redis(
     host="192.168.100.152",
@@ -15,6 +16,7 @@ def store_data(data):
             timestamp = int(date.timestamp() * 1000)
             pipe = r.pipeline()
             device_entry(device, timestamp, pipe, status)
+            time.sleep(5)
 
 
 def device_entry(device, timestamp, pipe, status):

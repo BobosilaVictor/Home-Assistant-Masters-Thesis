@@ -152,7 +152,7 @@ const OtherDevices = ({ devices, current_device }: DeviceProp) => {
   }, [embla, setScrollProgress]);
 
   useEffect(() => {
-    const socket = new WebSocket("ws://localhost:5679/");
+    const socket = new WebSocket("ws://192.168.100.152:5679/");
     const add_devices = (event: MessageEvent) => {
       const data = JSON.parse(event.data);
       console.log(data);

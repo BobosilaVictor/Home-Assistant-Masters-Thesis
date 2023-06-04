@@ -26,7 +26,7 @@ async def send_data():
 
 
 async def main():
-    async with websockets.serve(register, "localhost", 5680):
+    async with websockets.serve(register, "192.168.100.152", 5680):
         await send_data()
 
 
