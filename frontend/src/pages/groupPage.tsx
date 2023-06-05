@@ -1,5 +1,6 @@
 import { AppShell } from "@mantine/core";
 import { NavbarSimple } from "../components";
+import GroupContent from "../components/devices/groups/GroupContent";
 
 const GroupPage = () => {
   return (
@@ -16,7 +17,7 @@ const GroupPage = () => {
         },
       })}
     >
-      <p>Group</p>
+      <GroupContent></GroupContent>
     </AppShell>
   );
 };

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.11.0",
     "@faker-js/faker": "^8.0.2",
     "@mantine/carousel": "^6.0.5",
     "@mantine/core": "^6.0.5",
@@ -47,7 +48,8 @@
     "react-router-dom": "^6.9.0",
     "redis": "^4.6.7",
     "socket.io-client": "^4.6.1",
-    "tabler-icons-react": "^1.56.0"
+    "tabler-icons-react": "^1.56.0",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

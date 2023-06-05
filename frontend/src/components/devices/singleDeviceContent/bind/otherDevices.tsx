@@ -78,9 +78,7 @@ function Card({
   const check_if_binded = () => {
     Object.keys(endpoints).map((index: string) => {
       endpoints[index].bindings.map((binding) => {
-        // console.log(binding.target.ieee_address == deviceName)
         if (binding.target.ieee_address == deviceName) {
-          // console.log(true)
           x = true;
           return true;
         }
@@ -155,7 +153,6 @@ const OtherDevices = ({ devices, current_device }: DeviceProp) => {
     const socket = new WebSocket("ws://192.168.100.152:5679/");
     const add_devices = (event: MessageEvent) => {
       const data = JSON.parse(event.data);
-      console.log(data);
       if (typeof data[0] === "string") {
         notifications.show({ title: data[0], message: "" });
       }

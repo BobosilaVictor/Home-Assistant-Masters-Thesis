@@ -1,59 +1,125 @@
-import { useEffect, useState } from "react";
-import React from "react";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-import { Line } from "react-chartjs-2";
+import DataCardContent from "./dataCards/dataCardContent";
+import { Container, Grid, Title, createStyles, rem, Text } from "@mantine/core";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
+const keys2: { [key: string]: any } = {
+  // TempController: [
+  //   "linkquality",
+  //   "current_heating_setpoint",
+  //   "update_available",
+  //   "away_preset_days",
+  //   "window_open",
+  //   "local_temperature_calibration",
+  //   "max_temperature",
+  //   "eco_temperature",
+  //   "boost_time",
+  //   "position",
+  //   "comfort_temperature",
+  //   "local_temperature",
+  //   "battery_low",
+  //   "min_temperature",
+  //   "away_preset_temperature",
+  // ],
+  OfficeLight: [
+    "color_temp",
+    "update_available",
+    "brightness",
+    "linkquality",
+    "color_temp_startup",
+  ],
+  DoorDetector: [
+    "tamper",
+    "voltage",
+    "contact",
+    "battery_low",
+    "linkquality",
+    "battery",
+  ],
+  "0x00124b0029192503": [
+    "linkquality",
+    "voltage",
+    "temperature",
+    "humidity",
+    "battery",
+  ],
+  "0x00124b002917f1bf": [
+    "linkquality",
+    "voltage",
+    "temperature",
+    "humidity",
+    "battery",
+  ],
+};
+const useStyles = createStyles((theme) => ({
+  root: {
+    paddingTop: rem(80),
+    paddingBottom: rem(80),
+  },
+
+  label: {
+    textAlign: "center",
+    fontWeight: 900,
+    fontSize: rem(220),
+    lineHeight: 1,
+    marginBottom: `calc(${theme.spacing.xl} * 1.5)`,
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[4]
+        : theme.colors.gray[2],
+
+    [theme.fn.smallerThan("sm")]: {
+      fontSize: rem(120),
+    },
+  },
+
+  title: {
+    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+    textAlign: "center",
+    fontWeight: 900,
+    fontSize: rem(38),
+
+    [theme.fn.smallerThan("sm")]: {
+      fontSize: rem(32),
+    },
+  },
+
+  description: {
+    maxWidth: rem(500),
+    margin: "auto",
+    marginTop: theme.spacing.xl,
+    marginBottom: `calc(${theme.spacing.xl} * 1.5)`,
+  },
+}));
 const DataContent = () => {
-  const message = "0x00124b0029192503 temperature 5T";
-  const [data, setData] = useState();
-  useEffect(() => {
-    const socket = new WebSocket("ws://192.168.100.152:8002/");
-    socket.onopen = () => {
-      socket.send(JSON.stringify(message));
-    };
-    const receiveMessage = (event: MessageEvent) => {
-      setData(JSON.parse(JSON.parse(event.data)));
-    };
-    socket.addEventListener("message", receiveMessage);
-  }, []);
-  if (data != undefined) {
-    // console.log(data['temperature'])
-    const labels = Object.keys(data["temperature"]);
-    const values = Object.values(data["temperature"]);
-    console.log(data);
-    const chart_data = {
-      labels,
-      datasets: [
-        {
-          label: "temperature",
-          data: values,
-          borderColor: "rgb(53, 162, 235)",
-          backgroundColor: "rgba(53, 162, 235, 0.5)",
-        },
-      ],
-    };
-    return <Line data={chart_data}></Line>;
-  } else {
-    return <p>No data</p>;
-  }
+  const { classes } = useStyles();
+  return (
+    <div>
+      <Container className={classes.root}>
+        <div className={classes.label}>Warning!</div>
+        <Title className={classes.title}>
+          This is a really intensive component!
+        </Title>
+        <Text
+          color="dimmed"
+          size="lg"
+          align="center"
+          className={classes.description}
+        >
+          You might have issues with this component if your device is on the slower side!
+          Make sure you give each modal enough time to load, and if it doesn't refreshing might
+          help!
+        </Text>
+      </Container>
+      <Grid columns={3}>
+        {Object.entries(keys2).map((key, value) => {
+          return (
+            <Grid.Col span={1}>
+              <DataCardContent redis_data={key} />
+            </Grid.Col>
+          );
+        })}
+      </Grid>
+    </div>
+  );
 };
 
 export default DataContent;

@@ -5,7 +5,6 @@ import NoGroupContent from "./group/noGroupContent";
 
 const SingleDeviceGroup = () => {
   const groups = useSelector(selectGroups);
-  console.log(groups)
   if (groups.length <= 1 ){
     return(<NoGroupContent/>)
   } else {

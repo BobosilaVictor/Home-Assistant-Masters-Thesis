@@ -33,7 +33,7 @@ const mockdata = [
     title: "Data",
     description: "Check live data from you your devices in a pretty way!",
     icon: IconMessage,
-    to: AppRoutes.HOME,
+    to: AppRoutes.DATA,
   },
   {
     title: "Optimize",

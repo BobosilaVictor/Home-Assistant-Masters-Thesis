@@ -25,7 +25,6 @@ const SingleDeviceContent = () => {
   if (device == undefined) {
     return <>Loading</>;
   } else {
-    // console.log(device)
     if (button == 0) {
       return (
         <div>
