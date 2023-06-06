@@ -31,7 +31,7 @@ class RedisGetter:
         range_data = data.range(self.key, range[0], range[1])
         return range_data
 
-    def parse_range_data(self, resample_value="5T"):
+    def parse_range_data(self, resample_value="10T"):
         range_data = self.get_data_in_range()
         ts, param = zip(*range_data)
         ts = list(ts)

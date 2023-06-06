@@ -9,6 +9,7 @@ import { AppRoutes } from "./types";
 import SingleDevicePage from "../pages/singleDevicePage";
 import { addGroups } from "../redux/groupSlice";
 import DataPage from "../pages/dataPage";
+import OptimizationPage from "../pages/optimizationPage";
 
 const AppRouter = () => {
   const dispatch = useAppDispatch();
@@ -45,6 +46,7 @@ const AppRouter = () => {
         />
         <Route path={AppRoutes.GROUPS} element={<GroupPage />}></Route>
         <Route path={AppRoutes.DATA} element={<DataPage />}></Route>
+        <Route path={AppRoutes.OPTIMIZE} element={<OptimizationPage />}></Route>
       </Routes>
     </BrowserRouter>
   );

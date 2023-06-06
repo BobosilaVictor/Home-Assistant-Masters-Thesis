@@ -101,7 +101,7 @@ const data = [
   { link: AppRoutes.DEVICES, label: "Devices", icon: IconReceipt2 },
   { link: AppRoutes.GROUPS, label: "Groups", icon: IconReceipt2 },
   { link: AppRoutes.DATA, label: "Data", icon: IconFingerprint },
-  { link: AppRoutes.HOME, label: "Optimize", icon: IconKey },
+  { link: AppRoutes.OPTIMIZE, label: "Optimize", icon: IconKey },
 ];
 
 const NavbarSimple = () => {

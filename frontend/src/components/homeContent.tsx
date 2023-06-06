@@ -39,7 +39,7 @@ const mockdata = [
     title: "Optimize",
     description: "Run optimization algorithms to automate the automation",
     icon: IconWallpaper,
-    to: AppRoutes.HOME,
+    to: AppRoutes.OPTIMIZE,
   },
 ];
 
