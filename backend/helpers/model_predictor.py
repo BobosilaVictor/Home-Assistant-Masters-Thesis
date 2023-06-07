@@ -1,34 +1,34 @@
 import tensorflow as tf
 from .redis_device_getter import RedisGetter
 import numpy as np
-# from tensorflow.keras.backend import square, mean
+from tensorflow.keras.backend import square, mean
 from sklearn.preprocessing import MinMaxScaler
 
 
-# def loss_mse_warmup(y_true, y_pred):
-#     """
-#     Calculate the Mean Squared Error between y_true and y_pred,
-#     but ignore the beginning "warmup" part of the sequences.
+def loss_mse_warmup(y_true, y_pred):
+    """
+    Calculate the Mean Squared Error between y_true and y_pred,
+    but ignore the beginning "warmup" part of the sequences.
 
-#     y_true is the desired output.
-#     y_pred is the model's output.
-#     """
+    y_true is the desired output.
+    y_pred is the model's output.
+    """
 
-#     # The shape of both input tensors are:
-#     # [batch_size, sequence_length, num_y_signals].
+    # The shape of both input tensors are:
+    # [batch_size, sequence_length, num_y_signals].
 
-#     # Ignore the "warmup" parts of the sequences
-#     # by taking slices of the tensors.
-#     y_true_slice = y_true[:, 50:, :]
-#     y_pred_slice = y_pred[:, 50:, :]
+    # Ignore the "warmup" parts of the sequences
+    # by taking slices of the tensors.
+    y_true_slice = y_true[:, 50:, :]
+    y_pred_slice = y_pred[:, 50:, :]
 
-#     # These sliced tensors both have this shape:
-#     # [batch_size, sequence_length - warmup_steps, num_y_signals]
+    # These sliced tensors both have this shape:
+    # [batch_size, sequence_length - warmup_steps, num_y_signals]
 
-#     # Calculat the Mean Squared Error and use it as loss.
-#     mse = mean(square(y_true_slice - y_pred_slice))
+    # Calculat the Mean Squared Error and use it as loss.
+    mse = mean(square(y_true_slice - y_pred_slice))
 
-#     return mse
+    return mse
 
 
 class ModelPredictor:
@@ -36,8 +36,9 @@ class ModelPredictor:
         self.data = RedisGetter(device, key).parse_range_data('10T"')
 
     def load_model(self, path):
-        return tf.keras.models.load_model(path)
-
+        return tf.keras.models.load_model(
+            path, custom_objects={"loss_mse_warmup": loss_mse_warmup}
+        )
 
     def prepare_input_data(self, input_data):
         self.x_scaler = MinMaxScaler()
