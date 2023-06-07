@@ -20,7 +20,6 @@ def store_data(data):
 
 def device_entry(device, timestamp, pipe, status):
     for key in status.keys():
-        print(key)
         if check_if_list(status[key]):
             continue
         if check_if_status_is_update(status[key]):
@@ -35,7 +34,6 @@ def device_entry(device, timestamp, pipe, status):
 
 
 def check_if_status_is_update(status):
-    print(type(status))
     if isinstance(status, dict):
         return True
     else:

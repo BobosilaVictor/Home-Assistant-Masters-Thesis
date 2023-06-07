@@ -37,8 +37,6 @@ class DeviceBind(object):
         while not q.empty():
             message = q.get()
             self.data = json.loads(message)
-
-        print(self.data)
         self.data = self.parse_data()
 
     def parse_data(self):
