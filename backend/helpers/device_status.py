@@ -24,13 +24,10 @@ class DeviceState(object):
     def on_connect_state(self, client, userdata, flags, rc):
         # Subscribing in on_connect() means that if we lose the connection and
         # reconnect then subscriptions will be renewed.
-        print("connected state")
         self.subscribe_to_device_status(self.data)
 
     def on_disconnect_state(self, client, userdata, rc):
         self.client.loop_stop()
-        print(" ")
-        print("disconnected")
 
     def on_message_state(self, client, userdata, message):
         # global messages

@@ -20,7 +20,6 @@ class DeviceGroupFinder(object):
 
     def on_connect_finder(self, client, userdata, flags, rc):
         self.client.subscribe("zigbee2mqtt/bridge/groups")
-        print("connected! groups")
 
     def on_message_finder(self, client, userdata, message):
         # global messages

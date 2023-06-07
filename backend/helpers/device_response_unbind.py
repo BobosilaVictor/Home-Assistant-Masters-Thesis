@@ -20,7 +20,6 @@ class DeviceUnBind(object):
 
     def on_connect_finder(self, client, userdata, flags, rc):
         self.client.subscribe("zigbee2mqtt/bridge/response/device/unbind")
-        print("connected! response2")
 
     def on_message_finder(self, client, userdata, message):
         # global messages

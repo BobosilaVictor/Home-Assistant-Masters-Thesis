@@ -7,8 +7,9 @@ import websockets
 
 async def handler(websocket):
     async for message in websocket:
-        if message.split()[0] == "add_group":
-            DeviceSetter().publishCustomNewGroup(message.split()[1], message.split()[2])
+        print(message)
+        if message.split()[0][1:] == "add_group":
+            DeviceSetter().publishCustomNewGroup(message.split()[1], message.split()[2][:-1])
         else:
             if len(message.split()) == 3:
                 print(message.split()[1], message.split()[0][1:], message.split()[2])
