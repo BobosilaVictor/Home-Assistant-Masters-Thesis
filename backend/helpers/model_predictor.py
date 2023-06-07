@@ -1,7 +1,6 @@
 import tensorflow as tf
 from .redis_device_getter import RedisGetter
 import numpy as np
-import tflite_runtime.interpreter as tflite
 # from tensorflow.keras.backend import square, mean
 from sklearn.preprocessing import MinMaxScaler
 
@@ -37,7 +36,7 @@ class ModelPredictor:
         self.data = RedisGetter(device, key).parse_range_data('10T"')
 
     def load_model(self, path):
-        return tflite.Interpreter(model_path=args.model_file)
+        return tf.keras.models.load_model(path)
 
 
     def prepare_input_data(self, input_data):
