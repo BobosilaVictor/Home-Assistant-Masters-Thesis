@@ -16,7 +16,7 @@ import {
 } from "../../redux/optimizationButtonSlice";
 import { useAppDispatch } from "../../redux/hooks";
 import { selectOptimizationPrediction } from "../../redux/optimizerPredictionSlice";
-import OptimzationBody from "./optimizationbody";
+import OptimzationBody from "./optimizationBody";
 
 const useStyles = createStyles((theme) => ({
   root: {

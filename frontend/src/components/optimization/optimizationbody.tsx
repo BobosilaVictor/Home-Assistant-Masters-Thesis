@@ -15,6 +15,7 @@ import {
   IconCircleDotted,
   IconFileCode,
 } from "@tabler/icons-react";
+import { useEffect, useState } from "react";
 const useStyles = createStyles((theme) => ({
   wrapper: {
     padding: `calc(${theme.spacing.xl} * 2) ${theme.spacing.xl}`,
@@ -30,38 +31,52 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-
 interface BodyProps {
-    prediction: string;
+  prediction: string;
 }
 const OptimzationBody = ({ prediction }: BodyProps) => {
-    const { classes } = useStyles();
-    const features = [
-      {
-        icon: IconReceiptOff,
-        title: prediction,
-        description:
-          "All packages are published under MIT license, you can use Mantine in any project",
-      },
-      {
-        icon: IconFileCode,
-        title: "TypeScript based",
-        description:
-          "Build type safe applications, all components and hooks export types",
-      },
-      {
-        icon: IconCircleDotted,
-        title: "No annoying focus ring",
-        description:
-          "With new :focus-visible selector focus ring will appear only when user navigates with keyboard",
-      },
-      {
-        icon: IconFlame,
-        title: "Flexible",
-        description:
-          "Customize colors, spacing, shadows, fonts and many other settings with global theme object",
-      },
-    ];
+  const { classes } = useStyles();
+  const message = "machinelearning";
+  const [data, setData] = useState();
+  useEffect(() => {
+    const socket = new WebSocket("ws://192.168.100.152:8002/");
+    socket.onopen = () => {
+      socket.send(JSON.stringify(message));
+    };
+    const receiveMessage = (event: MessageEvent) => {
+      setData(JSON.parse(JSON.parse(event.data)));
+    };
+    socket.addEventListener("message", receiveMessage);
+    return () => {
+      socket.close();
+    };
+  }, []);
+  const features = [
+    {
+      icon: IconReceiptOff,
+      title: prediction,
+      description:
+        "All packages are published under MIT license, you can use Mantine in any project",
+    },
+    {
+      icon: IconFileCode,
+      title: "TypeScript based",
+      description:
+        "Build type safe applications, all components and hooks export types",
+    },
+    {
+      icon: IconCircleDotted,
+      title: "No annoying focus ring",
+      description:
+        "With new :focus-visible selector focus ring will appear only when user navigates with keyboard",
+    },
+    {
+      icon: IconFlame,
+      title: "Flexible",
+      description:
+        "Customize colors, spacing, shadows, fonts and many other settings with global theme object",
+    },
+  ];
 
   const items = features.map((feature) => (
     <div key={feature.title}>
