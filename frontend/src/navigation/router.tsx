@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Route, Routes } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 import { Device, Groups } from "../models";
@@ -10,9 +10,25 @@ import SingleDevicePage from "../pages/singleDevicePage";
 import { addGroups } from "../redux/groupSlice";
 import DataPage from "../pages/dataPage";
 import OptimizationPage from "../pages/optimizationPage";
+import { SocketContext2 } from "../App";
+import { prediction_value } from "../redux/optimizerPredictionSlice";
 
 const AppRouter = () => {
   const dispatch = useAppDispatch();
+
+  const message = "0x00124b0029192503 temperature";
+  const socket = useContext(SocketContext2);
+  useEffect(() => {
+    if (socket && socket.readyState == socket.OPEN) {
+      socket.send(JSON.stringify(message));
+    } else if (socket && socket.readyState == socket.CONNECTING) {
+    }
+    const receiveMessage = (event: MessageEvent) => {
+      dispatch(prediction_value(JSON.parse(event.data)));
+    };
+    socket.addEventListener("message", receiveMessage);
+  });
+
   useEffect(() => {
     const socket = new WebSocket("ws://192.168.100.152:5678/");
     const add_devices = (event: MessageEvent) => {

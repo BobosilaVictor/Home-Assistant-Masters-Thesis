@@ -5,20 +5,27 @@ import asyncio
 import websockets
 import time
 
+CONNECTIONS = set()
 
-async def handler(websocket):
-    async for message in websocket:
-        device_name = message.split()[0]
-        property = message.split()[1][:-1]
-        data = ModelPredictor(device_name, property).make_prediction()
 
-        await websocket.send(json.dumps(str(data[0])))
-        time.sleep(60 * 10)
+async def register(websocket):
+    CONNECTIONS.add(websocket)
+    try:
+        await websocket.wait_closed()
+    finally:
+        CONNECTIONS.remove(websocket)
+
+
+async def send_data():
+    while True:
+        data = ModelPredictor("0x00124b0029192503", "temperature").make_prediction()
+        await asyncio.sleep(1)
+        websockets.broadcast(CONNECTIONS, json.dumps(data))
 
 
 async def main():
-    async with websockets.serve(handler, "192.168.100.152", 8003):
-        await asyncio.Future()  # run forever
+    async with websockets.serve(register, "192.168.100.152", 8003):
+        await send_data()
 
 
 if __name__ == "__main__":

@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Device, Group } from '../models'
+import { Device, Groups } from '../models'
 import type { RootState } from './store'
 
 // Define a type for the slice state
 interface GroupState {
-  group:  Group[]
+  group:  Groups[]
 }
 
 // Define the initial state using that type
@@ -17,7 +17,7 @@ export const groupSlice = createSlice({
   initialState,
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
-    addGroups: (state, action: PayloadAction<Group[]>) => {
+    addGroups: (state, action: PayloadAction<Groups[]>) => {
       state.group = action.payload
     }
   }

@@ -5,10 +5,17 @@ import {
   Text,
   Button,
   rem,
-  Grid,
-  Card,
 } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { SocketContext2 } from "../../App";
+import { useSelector } from "react-redux";
+import {
+  off,
+  on,
+  selectOptimizationButton,
+} from "../../redux/optimizationButtonSlice";
+import { useAppDispatch } from "../../redux/hooks";
+import { selectOptimizationPrediction } from "../../redux/optimizerPredictionSlice";
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -85,19 +92,21 @@ const useStyles = createStyles((theme) => ({
 
 const OptimizationContent = () => {
   const { classes } = useStyles();
-  const [data, setData] = useState();
-  const message = "0x00124b0029192503 temperature";
-  const socket = new WebSocket("ws://192.168.100.152:8003/");
-  useEffect(() => {
-    socket.onopen = () => {
-      socket.send(JSON.stringify(message));
-    };
-    const receiveMessage = (event: MessageEvent) => {
-      setData(JSON.parse(JSON.parse(event.data)));
-    };
-    socket.addEventListener("message", receiveMessage);
-  });
-  console.log(data)
+  const button = useSelector(selectOptimizationButton);
+  const prediction = useSelector(selectOptimizationPrediction);
+  const dispatch = useAppDispatch();
+  const [start, setStart] = useState(false);
+  const start_optimizing = () => {
+    if (button == false) {
+      dispatch(on());
+      setStart(button);
+    } else {
+      dispatch(off());
+      setStart(button);
+    }
+  };
+
+
   return (
     <div>
       <div className={classes.root}>
@@ -127,13 +136,15 @@ const OptimizationContent = () => {
                 size="xl"
                 className={classes.control}
                 mt={40}
+                onClick={() => start_optimizing()}
               >
-                Start optimizing
+                {start ? "Stop the Optimizer" : "Start Optimizing"}
               </Button>
             </div>
           </div>
         </Container>
       </div>
+      <p>{prediction}</p>
     </div>
   );
 };
