@@ -106,7 +106,7 @@ const OptimizationContent = () => {
       setStart(button);
     }
   };
-
+  console.log(prediction)
   return (
     <div>
       <div className={classes.root}>
