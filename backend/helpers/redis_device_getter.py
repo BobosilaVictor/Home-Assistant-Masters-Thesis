@@ -10,7 +10,7 @@ class RedisGetter:
         self.connect_to_db()
 
         self.key = f"ts:{self.device_name[1:]}:{self.property_name}"
-        self.ml_key = f"ts:{self.device_name[1:]}"
+        self.ml_key = f"ts:{self.device_name[1:-1]}"
 
     def connect_to_db(self):
         self.r = redis.Redis(
