@@ -31,7 +31,7 @@ class RedisGetter:
         range_data = data.range(self.key, range[0], range[1])
         return range_data
 
-    def parse_range_data(self, resample_value="10T"):
+    def parse_range_data(self, resample_value="10T", return_data_frame=False):
         range_data = self.get_data_in_range()
         ts, param = zip(*range_data)
         ts = list(ts)
@@ -50,13 +50,13 @@ class RedisGetter:
         device_data = pd.DataFrame({"Date": ts_date, self.property_name: param})
         device_data["Date"] = pd.to_datetime(device_data["Date"])
         device_data = (
-            device_data.set_index("Date")
-            .resample(rule=resample_value[:-1])
-            .bfill()
+            device_data.set_index("Date").resample(rule=resample_value[:-1]).bfill()
         )
+        if return_data_frame == True:
+            return device_data
         # to make json more readable we reset_index to str
-        device_data["Date"] = device_data.index
-        device_data["Date"] = device_data["Date"].dt.strftime("%Y-%m-%d %H:%M:%S")
-
-        device_data = device_data.set_index("Date")
-        return device_data.to_json()
+        else:
+            device_data["Date"] = device_data.index
+            device_data["Date"] = device_data["Date"].dt.strftime("%Y-%m-%d %H:%M:%S")
+            device_data = device_data.set_index("Date")
+            return device_data.to_json()

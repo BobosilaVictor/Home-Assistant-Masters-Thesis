@@ -96,9 +96,6 @@ const OptimizationContent = () => {
       setData(JSON.parse(JSON.parse(event.data)));
     };
     socket.addEventListener("message", receiveMessage);
-    return () => {
-      socket.close();
-    };
   });
   return (
     <div>

@@ -33,7 +33,9 @@ def loss_mse_warmup(y_true, y_pred):
 
 class ModelPredictor:
     def __init__(self, device, key):
-        self.data = RedisGetter(device, key).parse_range_data('10T"')
+        self.data = RedisGetter(device, key).parse_range_data(
+            resample_value='10T"', return_data_frame=True
+        )
 
     def load_model(self, path):
         return tf.keras.models.load_model(
