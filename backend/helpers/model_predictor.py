@@ -3,7 +3,7 @@ from .redis_device_getter import RedisGetter
 import numpy as np
 from tensorflow.keras.backend import square, mean
 from sklearn.preprocessing import MinMaxScaler
-
+import os
 
 def loss_mse_warmup(y_true, y_pred):
     """
@@ -39,7 +39,7 @@ class ModelPredictor:
 
     def load_model(self, path):
         return tf.keras.models.load_model(
-            path,
+            os.path.abspath(path),
             custom_objects={"loss_mse_warmup": loss_mse_warmup},
         )
 
