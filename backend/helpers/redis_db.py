@@ -15,8 +15,7 @@ def store_ml_data(data):
     pipe.execute_command(
             "ts.add", f"ts:machinelearning", timestamp, data
         )
-
-
+    pipe.execute()
 
 def store_data(data):
     for device in data:
