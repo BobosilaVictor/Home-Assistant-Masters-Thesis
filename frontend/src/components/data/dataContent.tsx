@@ -19,14 +19,8 @@ const keys2: { [key: string]: any } = {
   //   "min_temperature",
   //   "away_preset_temperature",
   // ],
-  OfficeLight: [
-    "color_temp",
-    "update_available",
-    "brightness",
-    "linkquality",
-    "color_temp_startup",
-  ],
-  DoorDetector: [
+  "0x54ef4410001fff2e": ["illuminance"],
+  "0x00124b00288fc9e7": [
     "tamper",
     "voltage",
     "contact",
@@ -104,9 +98,9 @@ const DataContent = () => {
           align="center"
           className={classes.description}
         >
-          You might have issues with this component if your device is on the slower side!
-          Make sure you give each modal enough time to load, and if it doesn't refreshing might
-          help!
+          You might have issues with this component if your device is on the
+          slower side! Make sure you give each modal enough time to load, and if
+          it doesn't refreshing might help!
         </Text>
       </Container>
       <Grid columns={3}>

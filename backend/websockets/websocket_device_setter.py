@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from  backend.helpers.device_setter import DeviceSetter
+from backend.helpers.device_setter import DeviceSetter
 
 import asyncio
 import websockets
@@ -7,15 +7,18 @@ import websockets
 
 async def handler(websocket):
     async for message in websocket:
-        if len(message.split()) == 3:
-            print(message.split()[1], message.split()[0][1:], message.split()[2])
-            DeviceSetter().publishCustomBind(
-                message.split()[1], message.split()[0][1:], message.split()[2][:-1]
-            )
+        if message.split()[0] == "add_group":
+            DeviceSetter().publishCustomNewGroup(message.split()[1], message.split()[2])
         else:
-            DeviceSetter().publishCustom(
-                message.split()[1], message.split()[2], message.split()[3]
-            )
+            if len(message.split()) == 3:
+                print(message.split()[1], message.split()[0][1:], message.split()[2])
+                DeviceSetter().publishCustomBind(
+                    message.split()[1], message.split()[0][1:], message.split()[2][:-1]
+                )
+            else:
+                DeviceSetter().publishCustom(
+                    message.split()[1], message.split()[2], message.split()[3]
+                )
 
 
 async def main():

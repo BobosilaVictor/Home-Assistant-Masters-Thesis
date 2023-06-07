@@ -36,6 +36,7 @@ const useStyles = createStyles((theme) => ({
 }));
 const GroupCardContent = ({ group }: GroupProps) => {
   const { classes } = useStyles();
+  console.log(group)
   return (
     <Card
       key={group.id}
@@ -53,7 +54,7 @@ const GroupCardContent = ({ group }: GroupProps) => {
       </Text>
       <Text className={classes.title} mt={5}>
         {group.members.map((member)=>{
-            return(<Text>{member.friendly_name}</Text>)
+            return(<Text>{member.ieee_address}</Text>)
         })}
       </Text>
     </Card>

@@ -9,8 +9,11 @@ import {
   createStyles,
   Text,
   rem,
+  Modal,
 } from "@mantine/core";
 import GroupCardContent from "./groupCardContent";
+import { useDisclosure } from "@mantine/hooks";
+import GroupModalAdd from "./groupModalAdd";
 
 const useStyles = createStyles((theme) => ({
   label: {
@@ -31,13 +34,18 @@ const useStyles = createStyles((theme) => ({
 }));
 const GroupContent = () => {
   const groups = useSelector(selectGroups);
-  const { classes } = useStyles();
+  const [opened, { open, close }] = useDisclosure(false);
 
+  const { classes } = useStyles();
+  
   return (
     <div>
       <div className={classes.label}>Groups!</div>
+      <Modal opened={opened} onClose={close} title="Authentication">
+        <GroupModalAdd/>
+      </Modal>
       <Container py="xl">
-      <Button> Create a new Group </Button>
+        <Button onClick={open}> Create a new Group </Button>
         <SimpleGrid cols={3} breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
           {groups.map((group) => {
             return <GroupCardContent group={group} />;
