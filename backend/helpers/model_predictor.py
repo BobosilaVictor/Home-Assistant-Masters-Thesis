@@ -1,5 +1,5 @@
 import tensorflow as tf
-from redis_device_getter import RedisGetter
+from .redis_device_getter import RedisGetter
 import numpy as np
 import tflite_runtime.interpreter as tflite
 # from tensorflow.keras.backend import square, mean
