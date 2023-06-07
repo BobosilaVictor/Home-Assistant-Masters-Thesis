@@ -20,7 +20,7 @@ async def register(websocket):
 async def send_data():
     while True:
         data = ModelPredictor("\"0x00124b0029192503", "temperature").make_prediction()
-        store_ml_data(data[0])
+        store_ml_data(float(data[0]))
         websockets.broadcast(CONNECTIONS, json.dumps(str(data[0])))
         await asyncio.sleep(60*10)
 
