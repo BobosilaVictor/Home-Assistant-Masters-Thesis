@@ -39,7 +39,8 @@ class ModelPredictor:
 
     def load_model(self, path):
         return tf.keras.models.load_model(
-            path, custom_objects={"loss_mse_warmup": loss_mse_warmup}
+            path,
+            custom_objects={"loss_mse_warmup": loss_mse_warmup},
         )
 
     def prepare_input_data(self, input_data):
@@ -59,7 +60,7 @@ class ModelPredictor:
         input_data_keys = ["temperature", "Day", "Hour"]
         df_input = data[input_data_keys]
         df_output = data["temperature"].values.reshape(-1, 1)
-        model = self.load_model("saved_model")
+        model = self.load_model("saved_model/lstm_model")
 
         scaled_input_data = self.prepare_input_data(df_input.values)
         self.prepare_output_data(df_output)
