@@ -21,6 +21,7 @@ const SliderContent = ({ feature, state }: FeatureProps) => {
       feature.property +
       " " +
       endValue;
+    console.log(message)
     if (socket && socket.readyState == socket.OPEN) {
       socket.send(JSON.stringify(message));
     }

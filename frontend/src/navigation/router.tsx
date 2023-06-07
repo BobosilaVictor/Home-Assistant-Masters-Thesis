@@ -10,23 +10,42 @@ import SingleDevicePage from "../pages/singleDevicePage";
 import { addGroups } from "../redux/groupSlice";
 import DataPage from "../pages/dataPage";
 import OptimizationPage from "../pages/optimizationPage";
-import { SocketContext2 } from "../App";
-import { prediction_value } from "../redux/optimizerPredictionSlice";
+import { SocketContext, SocketContext2 } from "../App";
+import {
+  prediction_value,
+  selectOptimizationPrediction,
+} from "../redux/optimizerPredictionSlice";
+import { useSelector } from "react-redux";
 
 const AppRouter = () => {
   const dispatch = useAppDispatch();
-
+  const socket_send = useContext(SocketContext);
+  const prediction = useSelector(selectOptimizationPrediction);
+  if (prediction) {
+    const message_prediction =
+      "current_heating_setpoint" +
+      " " +
+      "0x003c84fffec93d7d" +
+      " " +
+      "current_heating_setpoint" +
+      " " +
+      prediction;
+    if (socket_send && socket_send.readyState == socket_send.OPEN) {
+      console.log(message_prediction);
+      socket_send.send(JSON.stringify(message_prediction));
+    }
+  }
   const message = "0x00124b0029192503 temperature";
-  const socket = useContext(SocketContext2);
+  const socket2 = useContext(SocketContext2);
   useEffect(() => {
-    if (socket && socket.readyState == socket.OPEN) {
-      socket.send(JSON.stringify(message));
-    } else if (socket && socket.readyState == socket.CONNECTING) {
+    if (socket2 && socket2.readyState == socket2.OPEN) {
+      socket2.send(JSON.stringify(message));
+    } else if (socket2 && socket2.readyState == socket2.CONNECTING) {
     }
     const receiveMessage = (event: MessageEvent) => {
       dispatch(prediction_value(JSON.parse(event.data)));
     };
-    socket.addEventListener("message", receiveMessage);
+    socket2.addEventListener("message", receiveMessage);
   });
 
   useEffect(() => {
