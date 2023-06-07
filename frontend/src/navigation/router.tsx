@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Route, Routes } from "react-router";
 import { BrowserRouter } from "react-router-dom";
-import { Device, Group } from "../models";
+import { Device, Groups } from "../models";
 import { HomePage, DevicePage, GroupPage } from "../pages";
 import { incrementByAmount } from "../redux/deviceSlice";
 import { useAppDispatch } from "../redux/hooks";
@@ -21,18 +21,16 @@ const AppRouter = () => {
     socket.addEventListener("message", add_devices);
     return () => {
       socket.removeEventListener("message", add_devices);
-      // socket.close();
     };
   });
   useEffect(() => {
     const socket = new WebSocket("ws://192.168.100.152:5680/");
     const add_devices = (event: MessageEvent) => {
-      dispatch(addGroups(JSON.parse(event.data) as Group[]));
+      dispatch(addGroups(JSON.parse(event.data) as Groups[]));
     };
     socket.addEventListener("message", add_devices);
     return () => {
       socket.removeEventListener("message", add_devices);
-      // socket.close();
     };
   });
   return (

@@ -8,6 +8,7 @@ import {
   Grid,
   Card,
 } from "@mantine/core";
+import { useEffect, useState } from "react";
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -84,6 +85,21 @@ const useStyles = createStyles((theme) => ({
 
 const OptimizationContent = () => {
   const { classes } = useStyles();
+  const [data, setData] = useState();
+  const message = "0x00124b0029192503 temperature";
+  const socket = new WebSocket("ws://192.168.100.152:8003/");
+  useEffect(() => {
+    socket.onopen = () => {
+      socket.send(JSON.stringify(message));
+    };
+    const receiveMessage = (event: MessageEvent) => {
+      setData(JSON.parse(JSON.parse(event.data)));
+    };
+    socket.addEventListener("message", receiveMessage);
+    return () => {
+      socket.close();
+    };
+  });
   return (
     <div>
       <div className={classes.root}>
