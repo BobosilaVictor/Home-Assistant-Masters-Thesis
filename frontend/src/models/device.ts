@@ -14,7 +14,7 @@ export interface Device {
     endpoints: DeviceEndpoints
 }
 
-export interface Group{
+export interface Groups{
     friendly_name: string
     id: number
     members: Device[]

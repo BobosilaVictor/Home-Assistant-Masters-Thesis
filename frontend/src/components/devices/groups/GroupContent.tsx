@@ -37,12 +37,12 @@ const GroupContent = () => {
   const [opened, { open, close }] = useDisclosure(false);
 
   const { classes } = useStyles();
-  
+
   return (
     <div>
       <div className={classes.label}>Groups!</div>
       <Modal opened={opened} onClose={close} title="Authentication">
-        <GroupModalAdd/>
+        <GroupModalAdd />
       </Modal>
       <Container py="xl">
         <Button onClick={open}> Create a new Group </Button>

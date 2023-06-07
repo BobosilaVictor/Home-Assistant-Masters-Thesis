@@ -53,6 +53,18 @@ class DeviceSetter(object):
         self.client.publish(
             f"zigbee2mqtt/bridge/request/group/{topic_raw}", message_sent_string
         )
+        
+    def publishCustomDeleteGroup(self, topic_raw, message):
+        message_sent = {
+            "id": message,
+        }
+        # MQTT only acknowledges strings, ints, floats, or bytes as messages, so we have to convert the dictionary
+        # to a string
+        message_sent_string = json.dumps(message_sent)
+        self.client.publish(
+            f"zigbee2mqtt/bridge/request/group/{topic_raw}", message_sent_string
+        )
+
 
     def publishRename(self, device_to_change, message):
         message_sent = {"from": str(device_to_change), "to": message}

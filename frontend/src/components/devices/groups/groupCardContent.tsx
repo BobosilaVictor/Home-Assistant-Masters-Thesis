@@ -1,8 +1,21 @@
-import { AspectRatio, Card, createStyles, rem, Text } from "@mantine/core";
-import { Group } from "../../../models";
+import {
+  AspectRatio,
+  Button,
+  Card,
+  createStyles,
+  Divider,
+  Group,
+  rem,
+  Space,
+  Text,
+} from "@mantine/core";
+import { Groups } from "../../../models";
+import { IconTrash } from "@tabler/icons-react";
+import { useContext } from "react";
+import { SocketContext } from "../../../App";
 
 interface GroupProps {
-  group: Group;
+  group: Groups;
 }
 const useStyles = createStyles((theme) => ({
   card: {
@@ -36,7 +49,17 @@ const useStyles = createStyles((theme) => ({
 }));
 const GroupCardContent = ({ group }: GroupProps) => {
   const { classes } = useStyles();
-  console.log(group)
+  const socket = useContext(SocketContext);
+  const send_data = (value: number) => {
+    console.log(value);
+    const message = "remove_group" + " " + "remove" + " " + value;
+
+    if (socket && socket.readyState == socket.OPEN) {
+      console.log(message);
+      socket.send(JSON.stringify(message));
+    }
+  };
+  console.log(group);
   return (
     <Card
       key={group.id}
@@ -49,12 +72,29 @@ const GroupCardContent = ({ group }: GroupProps) => {
       <AspectRatio ratio={1920 / 1080}>
         <div className={classes.label}>{group.friendly_name}</div>
       </AspectRatio>
-      <Text color="dimmed" size="xs" transform="uppercase" weight={700} mt="md">
-        {group.id}
-      </Text>
-      <Text className={classes.title} mt={5}>
-        {group.members.map((member)=>{
-            return(<Text>{member.ieee_address}</Text>)
+      <Group spacing="xl" position="apart">
+        <Text
+          color="dimmed"
+          size="xl"
+          transform="uppercase"
+          weight={700}
+          mt="md"
+        >
+          ID: {group.id}
+        </Text>
+        <Button
+          onClick={() => send_data(group.id)}
+          color="red"
+          leftIcon={<IconTrash size="1rem" />}
+        >
+          Delete
+        </Button>
+      </Group>
+      <Space />
+      <Text mt={30}>
+        Members:
+        {group.members.map((member) => {
+          return <Text>{member.ieee_address}</Text>;
         })}
       </Text>
     </Card>

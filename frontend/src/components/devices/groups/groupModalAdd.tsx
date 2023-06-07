@@ -49,6 +49,7 @@ const GroupModalAdd = () => {
     const message = "add_group" + " " + "add" + " " + value;
 
     if (socket && socket.readyState == socket.OPEN) {
+        console.log(message)
       socket.send(JSON.stringify(message));
     }
   };
