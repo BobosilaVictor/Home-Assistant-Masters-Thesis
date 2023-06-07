@@ -8,6 +8,16 @@ r = redis.Redis(
 )
 
 
+def store_ml_data(data):
+    pipe = r.pipeline()
+    date = datetime.datetime.now()
+    timestamp = int(date.timestamp() * 1000)
+    pipe.execute_command(
+            "ts.add", f"ts:machinelearning", timestamp, data
+        )
+
+
+
 def store_data(data):
     for device in data:
         if "status" in device:

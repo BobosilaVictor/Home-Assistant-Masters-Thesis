@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from backend.helpers.model_predictor import ModelPredictor
+from backend.helpers.redis_db import store_ml_data
 import json
 import asyncio
 import websockets
@@ -19,8 +20,9 @@ async def register(websocket):
 async def send_data():
     while True:
         data = ModelPredictor("\"0x00124b0029192503", "temperature").make_prediction()
-        await asyncio.sleep(1)
+        store_ml_data(data[0])
         websockets.broadcast(CONNECTIONS, json.dumps(str(data[0])))
+        await asyncio.sleep(60*10)
 
 
 async def main():

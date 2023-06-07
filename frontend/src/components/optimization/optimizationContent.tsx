@@ -16,6 +16,7 @@ import {
 } from "../../redux/optimizationButtonSlice";
 import { useAppDispatch } from "../../redux/hooks";
 import { selectOptimizationPrediction } from "../../redux/optimizerPredictionSlice";
+import OptimzationBody from "./optimizationbody";
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -106,7 +107,6 @@ const OptimizationContent = () => {
     }
   };
 
-
   return (
     <div>
       <div className={classes.root}>
@@ -144,6 +144,7 @@ const OptimizationContent = () => {
           </div>
         </Container>
       </div>
+      <OptimzationBody prediction={prediction}/>
       <p>{prediction}</p>
     </div>
   );
