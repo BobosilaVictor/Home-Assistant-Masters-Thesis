@@ -20,12 +20,12 @@ class RedisGetter:
 
     def get_ml_data(self):
         ts = self.r.ts()
-        print(self.key)
-        info = ts.info(self.key)
+        print(self.ml_key)
+        info = ts.info(self.ml_key)
         first_ts, last_ts = info.first_timestamp, info.last_timestamp
 
         data = self.r.ts()
-        range_data = data.range(self.key, first_ts, last_ts)
+        range_data = data.range(self.ml_key, first_ts, last_ts)
         ts, param = zip(*range_data)
         ts = list(ts)
         param = list(param)
