@@ -12,7 +12,7 @@ async def handler(websocket):
         property = message.split()[1][:-1]
         data = ModelPredictor(device_name, property).make_prediction()
 
-        await websocket.send(json.dumps(data))
+        await websocket.send(json.dumps(str(data[0])))
         time.sleep(60 * 10)
 
 

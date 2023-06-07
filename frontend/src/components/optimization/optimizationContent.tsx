@@ -97,6 +97,7 @@ const OptimizationContent = () => {
     };
     socket.addEventListener("message", receiveMessage);
   });
+  console.log(data)
   return (
     <div>
       <div className={classes.root}>
