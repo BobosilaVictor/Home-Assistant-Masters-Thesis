@@ -67,6 +67,6 @@ class ModelPredictor:
 
         scaled_input_data = np.expand_dims(scaled_input_data, axis=1)
         prediction = model.predict(scaled_input_data)
-        prediction_rescaled = self.y_scaler.inverse_transform(prediction[0])[-1]
+        prediction_rescaled = self.y_scaler.inverse_transform(prediction[:,0])[-1]
 
         return prediction_rescaled
