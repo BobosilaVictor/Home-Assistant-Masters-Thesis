@@ -28,7 +28,7 @@ interface ModalContent {
 }
 
 const DataCardModalContent = ({ property, title }: ModalContent) => {
-  const message = title + " " + property + " " + "1T";
+  const message = title + " " + property + " " + "1H";
   const [data, setData] = useState();
   useEffect(() => {
     const socket = new WebSocket("ws://192.168.100.152:8002/");
