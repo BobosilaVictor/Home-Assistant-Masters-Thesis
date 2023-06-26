@@ -1,5 +1,5 @@
 const SingleDeviceSettings = () => {
-  return <p>Sex Settings</p>;
+  return <p>Some Settings</p>;
 };
 
 export default SingleDeviceSettings;
